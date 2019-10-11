@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+  </head>
+  <body>
+    <h1>Admin</h1>
+    <br />
+    <input type="text" id="root" placeholder="Enter id to send alert" />
+
+    <button id="btn1">Alert Accept</button>
+    <script>
+      var id = document.getElementById("root");
+      var btn = document.getElementById("btn1");
+      btn.addEventListener("click", function() {
+        let btnvalue = id.value;
+        console.log(btnvalue);
+
+        alert("alert message Successfully sent ");
+
+        fetch(`/api/admin/accept_alert/${btnvalue}`, {
+          method: "GET"
+        })
+          .then(response => response.json())
+          .then(json => {
+            console.log(json);
+          })
+          .catch(error => error);
+      });
+    </script>
+  </body>
+</html>
