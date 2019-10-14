@@ -2,8 +2,8 @@ var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
+var connection = require("./db");
 
-var bodyparser = require("body-parser");
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
@@ -23,9 +23,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Set 'views' directory for any views
 // being rendered res.render()
-app.set("views", path.join(__dirname, "views"));
+
 app.engine("ejs", require("ejs").renderFile);
-app.set("view engine", "ejs");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -39,7 +38,16 @@ app.use(bodyParser.json());
 app.use("/api", api);
 
 app.get("/", function(req, res) {
-  res.render("index");
+  connection.query(
+    `select * from alerttable order by id DESC  limit 5`,
+    (err, data) => {
+      if (!err) {
+        res.render("index", { record: data });
+      } else {
+        console.log(err);
+      }
+    }
+  );
 });
 
 // catch 404 and forward to error handler

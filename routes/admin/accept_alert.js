@@ -9,6 +9,12 @@ router.all("/:id", (req, res) => {
   const data = {
     alertaccept: new Date()
   };
+  connection.query(`select token from alerttable where id="${req.params.id}"`,(err,data1) =>{
+    if(!err){
+      var apptoken=(data1[0].token)
+     
+      //old 
+       
   connection.query(
     `update alerttable set alertaccept="${data.alertaccept}" where id="${req.params.id}"`,
     (error, data) => {
@@ -18,19 +24,19 @@ router.all("/:id", (req, res) => {
           message: "Alert Accepted"
         });
         //
-        var serviceAccount = require("C:/Users/Ravi/Desktop/task/private.json");
+        var serviceAccount = require("/home/rqavi/Desktop/alert/private.json");
 
-        if (!firebase.apps.length) {
-          firebase.initializeApp({});
+        if (!admin.apps.length) {
+          admin.initializeApp({
+        
+              credential: admin.credential.cert(serviceAccount),
+              databaseURL: "https://loyal-saga-254206.firebaseio.com"
+          
+          });
         }
-        admin.initializeApp({
-          credential: admin.credential.cert(serviceAccount),
-          databaseURL: "https://loyal-saga-254206.firebaseio.com"
-        });
-
-        var token = [
-          "fT-iqZmlApI:APA91bGcaCCl17xAgHUSI97VkRJk3L1nISJ91ZOUp4HCVm6lTFiXxToM4wpyvxnC2wWb_anfSxve8m7HyDlwXJMvM1ZGA55pSnyCX39l9ZzMpgqo9a4MQq1u_qKYiHMuX11FacpUn3TR"
-        ];
+        
+//app token 
+        var token = apptoken
 
         var payload = {
           notification: {
@@ -56,6 +62,12 @@ router.all("/:id", (req, res) => {
       }
     }
   );
+      //old end
+    }
+    else{
+      console.log(err)
+    }
+  })
 });
 //message
 

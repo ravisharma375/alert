@@ -4,11 +4,12 @@ var connection = require("../../db");
 const bodyparser = require("body-parser");
 
 //using get method to insert data in alert table
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
   const data = {
     time: new Date(),
     alertaccept: "",
-    status: 1
+    status: 1,
+    token:req.body.token
   };
   connection.query("insert into alerttable SET ?", data, (error, row) => {
     if (!error) {
