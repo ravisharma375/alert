@@ -9,7 +9,11 @@ router.post("/", (req, res) => {
     time: new Date(),
     alertaccept: "",
     status: 1,
-    token:req.body.token
+    token: req.body.token,
+    name: req.body.name,
+    email: req.body.email,
+    address: req.body.address,
+    contact_no: req.body.contact_no
   };
   connection.query("insert into alerttable SET ?", data, (error, row) => {
     if (!error) {

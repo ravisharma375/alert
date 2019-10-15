@@ -1,49 +1,71 @@
 <html>
   <head>
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-  <div class="container-fulid p-3">
-
+    <div class="container-fulid p-3">
       <table class="table">
-       
-          <h2 class="text-center">Admin</h2>
-          
-    
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">id</th>
-              <th scope="col">Alert generate time</th>
-              <th scope="col">Alert accept time</th>
-             
-            </tr>
-          </thead>
-          <tbody>
-            <% record.forEach(function(row){%>
-              <tr>
-                  <td><%=row.id%></td>
-                  <td><%=row.time%></td>
-                  <td><%=row.alertaccept%></td>
-                  
-                </tr>
-              
-            <% }) %>
-            
-           
-          
-          </tbody>
-        </table>
-        <div class="mb-2" >
-            <input type="text" class="form-control" id="root" placeholder="Enter id to send alert" style="width: 40%;" />
-            <button id="btn1" class="btn btn-primary">Alert Accept</button>
-        </div>
-  </div>
-   
-   
+        <h2 class="text-center">Admin</h2>
+
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">user</th>
+            <th scope="col">email</th>
+            <th scope="col">address</th>
+            <th scope="col">contact</th>
+            <th scope="col">Alert generate time</th>
+            <th scope="col">Alert accept time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% record.forEach(function(row){%>
+          <tr>
+            <td><%=row.id%></td>
+            <td><%=row.name%></td>
+            <td><%=row.email%></td>
+            <td><%=row.address%></td>
+            <td><%=row.contact_no%></td>
+            <td><%=row.time%></td>
+            <td><%=row.alertaccept%></td>
+          </tr>
+
+          <% }) %>
+        </tbody>
+      </table>
+      <div class="mb-2">
+        <input
+          type="text"
+          class="form-control"
+          id="root"
+          placeholder="Enter id to send alert"
+          style="width: 40%;"
+        />
+        <button id="btn1" class="btn btn-primary">Alert Accept</button>
+      </div>
+    </div>
+
     <script>
       var id = document.getElementById("root");
       var btn = document.getElementById("btn1");
@@ -51,8 +73,7 @@
         let btnvalue = id.value;
         console.log(btnvalue);
 
-       
-        alert('Alert message Successfully sent !')
+        alert("Alert message Successfully sent !");
 
         fetch(`/api/admin/accept_alert/${btnvalue}`, {
           method: "GET"
